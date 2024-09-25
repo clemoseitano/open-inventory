@@ -1,0 +1,5 @@
+<!DOCTYPE RCC><RCC version="1.0">
+ <qresource>
+    <file>sql/0001_initial.sql</file>
+ </qresource>
+</RCC>

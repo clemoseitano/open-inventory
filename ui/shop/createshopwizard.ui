@@ -1,0 +1,190 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui version="4.0">
+ <class>CreateShopWizard</class>
+ <widget class="QWizard" name="CreateShopWizard">
+  <property name="geometry">
+   <rect>
+    <x>0</x>
+    <y>0</y>
+    <width>563</width>
+    <height>266</height>
+   </rect>
+  </property>
+  <property name="windowTitle">
+   <string>Wizard</string>
+  </property>
+  <widget class="QWizardPage" name="shopLocationWizardPage">
+   <property name="whatsThis">
+    <string>dsfdsfasdfsdf</string>
+   </property>
+   <widget class="QWidget" name="layoutWidget">
+    <property name="geometry">
+     <rect>
+      <x>1</x>
+      <y>21</y>
+      <width>264</width>
+      <height>144</height>
+     </rect>
+    </property>
+    <layout class="QVBoxLayout" name="verticalLayout">
+     <item>
+      <layout class="QGridLayout" name="gridLayout">
+       <item row="0" column="0" colspan="2">
+        <widget class="QLabel" name="locationNameLabel">
+         <property name="text">
+          <string>Location Name</string>
+         </property>
+        </widget>
+       </item>
+       <item row="0" column="2">
+        <widget class="QLineEdit" name="locationNameLineEdit"/>
+       </item>
+       <item row="2" column="2">
+        <widget class="QLineEdit" name="contactLineEdit"/>
+       </item>
+       <item row="1" column="2">
+        <widget class="QLineEdit" name="addressLineEdit"/>
+       </item>
+       <item row="1" column="0" colspan="2">
+        <widget class="QLabel" name="addressLabel">
+         <property name="text">
+          <string>Address</string>
+         </property>
+        </widget>
+       </item>
+       <item row="2" column="0" colspan="2">
+        <widget class="QLabel" name="contactLabel">
+         <property name="text">
+          <string>Contact</string>
+         </property>
+        </widget>
+       </item>
+      </layout>
+     </item>
+     <item>
+      <layout class="QGridLayout" name="gridLayout_2">
+       <item row="0" column="0">
+        <widget class="QLabel" name="latitudeLabel">
+         <property name="text">
+          <string>Latitude</string>
+         </property>
+        </widget>
+       </item>
+       <item row="0" column="1">
+        <widget class="QLabel" name="longitudeLabel">
+         <property name="text">
+          <string>Longitude</string>
+         </property>
+        </widget>
+       </item>
+       <item row="1" column="0">
+        <widget class="QLineEdit" name="latitudeLineEdit"/>
+       </item>
+       <item row="1" column="1">
+        <widget class="QLineEdit" name="longitudeLineEdit"/>
+       </item>
+      </layout>
+     </item>
+    </layout>
+   </widget>
+  </widget>
+  <widget class="QWizardPage" name="shopInfoWizardPage">
+   <widget class="QWidget" name="layoutWidget">
+    <property name="geometry">
+     <rect>
+      <x>0</x>
+      <y>10</y>
+      <width>324</width>
+      <height>99</height>
+     </rect>
+    </property>
+    <layout class="QVBoxLayout" name="verticalLayout_2">
+     <item>
+      <layout class="QHBoxLayout" name="horizontalLayout">
+       <item>
+        <widget class="QLabel" name="imageLabel">
+         <property name="text">
+          <string>Image/Logo</string>
+         </property>
+        </widget>
+       </item>
+       <item>
+        <widget class="QLineEdit" name="imageLineEdit"/>
+       </item>
+       <item>
+        <widget class="QPushButton" name="selectImagePushButton">
+         <property name="text">
+          <string>Select Image</string>
+         </property>
+        </widget>
+       </item>
+      </layout>
+     </item>
+     <item>
+      <layout class="QGridLayout" name="gridLayout_3">
+       <item row="0" column="0">
+        <widget class="QLabel" name="shopNameLabel">
+         <property name="text">
+          <string>Shop Name</string>
+         </property>
+        </widget>
+       </item>
+       <item row="0" column="1">
+        <widget class="QLineEdit" name="shopNameLineEdit"/>
+       </item>
+       <item row="1" column="0">
+        <widget class="QLabel" name="websiteLabel">
+         <property name="text">
+          <string>Website</string>
+         </property>
+        </widget>
+       </item>
+       <item row="1" column="1">
+        <widget class="QLineEdit" name="websiteLineEdit"/>
+       </item>
+      </layout>
+     </item>
+    </layout>
+   </widget>
+  </widget>
+ </widget>
+ <resources/>
+ <connections>
+  <connection>
+   <sender>selectImagePushButton</sender>
+   <signal>clicked()</signal>
+   <receiver>CreateShopWizard</receiver>
+   <slot>onSelectImagePushButtonClicked()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>428</x>
+     <y>46</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>165</x>
+     <y>219</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>CreateShopWizard</sender>
+   <signal>accepted()</signal>
+   <receiver>CreateShopWizard</receiver>
+   <slot>onCreateShopWizardAccepted()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>507</x>
+     <y>241</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>507</x>
+     <y>241</y>
+    </hint>
+   </hints>
+  </connection>
+ </connections>
+ <slots>
+  <slot>onSelectImagePushButtonClicked()</slot>
+  <slot>onCreateShopWizardAccepted()</slot>
+ </slots>
+</ui>
