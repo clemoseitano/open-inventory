@@ -11,7 +11,7 @@
    </rect>
   </property>
   <property name="windowTitle">
-   <string>Form</string>
+   <string>Welcome to Sales</string>
   </property>
   <widget class="QWidget" name="layoutWidget">
    <property name="geometry">
@@ -23,66 +23,17 @@
     </rect>
    </property>
    <layout class="QGridLayout" name="gridLayout">
-    <item row="1" column="1">
-     <widget class="QLabel" name="createSubcategoryLabel">
-      <property name="text">
-       <string>Create subcategories (optional)</string>
-      </property>
-     </widget>
-    </item>
-    <item row="1" column="2">
-     <widget class="QPushButton" name="createSubcategoryPushButton">
-      <property name="text">
-       <string>Create</string>
-      </property>
-     </widget>
-    </item>
-    <item row="2" column="0">
-     <widget class="QCheckBox" name="createProductCheckBox">
-      <property name="text">
-       <string/>
-      </property>
-     </widget>
-    </item>
-    <item row="2" column="1">
-     <widget class="QLabel" name="createProductLabel">
-      <property name="text">
-       <string>Add products to your categories</string>
-      </property>
-     </widget>
-    </item>
-    <item row="0" column="0">
-     <widget class="QCheckBox" name="createCategoryCheckBox">
-      <property name="text">
-       <string/>
-      </property>
-     </widget>
-    </item>
-    <item row="2" column="2">
+    <item row="0" column="1">
      <widget class="QPushButton" name="createProductPushButton">
       <property name="text">
        <string>Add</string>
       </property>
      </widget>
     </item>
-    <item row="1" column="0">
-     <widget class="QCheckBox" name="createSubcategoryCheckBox">
+    <item row="0" column="0">
+     <widget class="QLabel" name="createProductLabel">
       <property name="text">
-       <string/>
-      </property>
-     </widget>
-    </item>
-    <item row="0" column="1">
-     <widget class="QLabel" name="createCategoryLabel">
-      <property name="text">
-       <string>Start by creating a category</string>
-      </property>
-     </widget>
-    </item>
-    <item row="0" column="2">
-     <widget class="QPushButton" name="createCategoryPushButton">
-      <property name="text">
-       <string>Start</string>
+       <string>Add your first product</string>
       </property>
      </widget>
     </item>
@@ -90,5 +41,25 @@
   </widget>
  </widget>
  <resources/>
- <connections/>
+ <connections>
+  <connection>
+   <sender>createProductPushButton</sender>
+   <signal>clicked()</signal>
+   <receiver>EmptyStateWidget</receiver>
+   <slot>onAddProductClicked()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>268</x>
+     <y>138</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>269</x>
+     <y>238</y>
+    </hint>
+   </hints>
+  </connection>
+ </connections>
+ <slots>
+  <slot>onAddProductClicked()</slot>
+ </slots>
 </ui>

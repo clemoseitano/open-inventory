@@ -8,6 +8,11 @@ EmptyStateWidget::EmptyStateWidget(QWidget *parent)
     ui->setupUi(this);
 }
 
+void EmptyStateWidget::onAddProductPushButtonClicked()
+{
+
+}
+
 EmptyStateWidget::~EmptyStateWidget()
 {
     delete ui;

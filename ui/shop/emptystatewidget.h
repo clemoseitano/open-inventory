@@ -15,6 +15,9 @@ public:
     explicit EmptyStateWidget(QWidget *parent = nullptr);
     ~EmptyStateWidget();
 
+private slots:
+    void onAddProductPushButtonClicked();
+
 private:
     Ui::EmptyStateWidget *ui;
 };

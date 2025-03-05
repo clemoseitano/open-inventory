@@ -2,6 +2,7 @@
 #define MAINWINDOW_H
 
 #include "shop.h"
+#include "product.h"
 #include <QMainWindow>
 
 QT_BEGIN_NAMESPACE
@@ -23,8 +24,11 @@ private slots:
 
 private:
     Ui::MainWindow *ui;
+    Shop *selectedShop;
     QList<Shop> m_shops;
+    QList<Product> m_products;
     void fetchAllShops();
+    void fetchAllProductsForShop();
 
 protected:
     void showEvent(QShowEvent *event);

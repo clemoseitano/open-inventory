@@ -3,6 +3,7 @@
 #include "ui/shop/shopselectiondialog.h"
 #include "./ui_mainwindow.h"
 #include "shop.h"
+#include "product.h"
 #include <QSqlQuery>
 #include <QSqlError>
 #include <QSqlRecord>
@@ -13,7 +14,7 @@
 
 MainWindow::MainWindow(QWidget *parent)
     : QMainWindow(parent)
-    , ui(new Ui::MainWindow), m_shops(QList<Shop>())
+    , ui(new Ui::MainWindow), m_shops(QList<Shop>()), m_products(QList<Product>()), selectedShop(nullptr)
 {
     ui->setupUi(this);
 }
@@ -32,10 +33,9 @@ void MainWindow::showEvent(QShowEvent *event)
     fetchAllShops();
 
     if (m_shops.length() == 0) {
-        CreateShopWizard wizard(this);  // Create the wizard instance
+        CreateShopWizard wizard(this);
         if (wizard.exec() == QDialog::Accepted) {
-            // Handle the case where the wizard completes successfully
-            fetchAllShops();  // Optionally refresh the shop list
+            fetchAllShops();
         }
     } else {
         // Show the ShopSelectionDialog when shops are available
@@ -43,7 +43,7 @@ void MainWindow::showEvent(QShowEvent *event)
         // Connect the signal from ShopSelectionDialog to the slot in MainWindow
         connect(&shopDialog, &ShopSelectionDialog::shopSelected,
                 this, &MainWindow::onShopSelected);
-        shopDialog.exec();  // Show the dialog modally
+        shopDialog.exec();
     }
 }
 
@@ -71,14 +71,6 @@ void MainWindow::fetchAllShops()
             // Create the Shop object and append it to the list
             Shop shop = Shop(id, name, link, image, ownerId, locationId);
             m_shops.append(shop);
-
-            // Output or use the fetched data
-            qDebug() << "Shop ID:" << id
-                     << "Image:" << image
-                     << "Link:" << link
-                     << "Name:" << name
-                     << "Owner ID:" << ownerId
-                     << "Location ID:" << locationId;
         }
     } else {
         // Handle query execution error
@@ -86,11 +78,63 @@ void MainWindow::fetchAllShops()
     }
 }
 
+void MainWindow::fetchAllProductsForShop()
+{
+    if (selectedShop == nullptr) {
+        qDebug() << "No shop selected.";
+        return;
+    }
+
+    QSqlQuery query;
+
+    // Prepare the SQL query to fetch all products from the selected shop
+    query.prepare("SELECT * FROM product WHERE shop_id = :shop_id");
+    query.bindValue(":shop_id", selectedShop->id);
+
+    // Clear the existing products list
+    m_products.clear();
+
+    // Execute the query
+    if (query.exec()) {
+        while (query.next()) {
+            Product product;
+
+            product.id = query.value("id").toLongLong();
+            product.name = query.value("name").toString();
+            product.description = query.value("description").toString();
+            product.code = query.value("code").toString();
+            product.price = query.value("price").toInt();
+            product.quantity = query.value("quantity").toInt();
+            product.size = query.value("size").toString();
+            product.archived = query.value("archived").toBool();
+            product.shopId = query.value("shop_id").toLongLong();
+            product.categoryId = query.value("category_id").toLongLong();
+            product.subcategoryId = query.value("subcategory_id").toLongLong();
+            product.createdAt = query.value("created_at").toDateTime();
+            product.updatedAt = query.value("updated_at").toDateTime();
+
+            m_products.append(product);
+        }
+    } else {
+        qDebug() << "Error executing query:" << query.lastError().text();
+    }
+}
+
 
 void MainWindow::onShopSelected(Shop *shop)
 {
-    // Handle the selected shop here
+    selectedShop = shop;
     qDebug() << "Selected shop:" << shop->name << "with ID:" << shop->id;
+    fetchAllProductsForShop();
+    // TODO: if products are not available show empty state widget
+    if (m_products.isEmpty()) {
+        // No products available; show the empty state page
+        ui->stackedWidget->setCurrentIndex(0); // or ui->stackedWidget->setCurrentWidget(ui->emptyState);
+    } else {
+        // Products are available; show the product page
+        ui->stackedWidget->setCurrentIndex(1); // or ui->stackedWidget->setCurrentWidget(ui->productPage);
 
-    // You can now take any further actions, like updating the UI or storing the selected shop
+        // Update the product page with the list of products
+        // ui->productPage->setProducts(m_products);
+    }
 }
